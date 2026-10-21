@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>فائض | FAED — نموذج أولي</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f1ea;--card:#fff;--ink:#12302f;--mut:#5d716f;--line:#d9dfdb;--pri:#0f5c57;--acc:#e0a526;--ok:#2e8b57;--blue:#2b6cb0;--org:#e07a26;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1f1e;--card:#162b2a;--ink:#e8efec;--mut:#9bb0ac;--line:#294342;--pri:#4fc3b8}}
+:root[data-theme="dark"]{--bg:#0e1f1e;--card:#162b2a;--ink:#e8efec;--mut:#9bb0ac;--line:#294342;--pri:#4fc3b8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;line-height:1.7}
+main{max-width:900px;margin:0 auto;padding:16px}
+h1{font-size:1.7rem;margin:6px 0 0}h2{font-size:1.05rem;margin:0 0 10px}
+.sub{color:var(--mut);margin:0 0 12px;font-size:.9rem}
+nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px}
+nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:.88rem;padding:7px 13px;border-radius:999px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--pri);color:#fff;border-color:var(--pri)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.screen{display:none}.screen.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;overflow-x:auto}
+label{display:block;font-size:.85rem;color:var(--mut);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.btn{background:var(--pri);color:#fff;border:0;font:inherit;font-weight:700;padding:11px 18px;border-radius:10px;cursor:pointer;margin-top:12px}
+.btn.alt{background:var(--acc);color:#12302f}
+.acc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:12px}
+.acc button{background:var(--card);border:1px solid var(--line);color:var(--ink);font:inherit;font-weight:700;padding:16px;border-radius:12px;cursor:pointer;font-size:1rem}
+.acc button:hover{border-color:var(--pri)}
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:700;background:var(--line);white-space:nowrap}
+.sim{background:#f8e7b8;color:#6b4c00}.hi{background:#f6d6cc;color:#8a2f12}.md{background:#f8e7b8;color:#6b4c00}.lo{background:#cfe9d9;color:#1d5a37}
+.req{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+.req:last-child{border:0}
+.score{font-size:1.3rem;font-weight:700;color:var(--pri)}
+.stop{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.stop:last-child{border:0}
+.dot{flex:none;min-width:34px;height:34px;border-radius:50%;border:2px solid var(--pri);background:none;color:var(--ink);cursor:pointer;font:inherit;font-weight:700}
+.stop.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+.stop.done .t b{text-decoration:line-through;color:var(--mut)}
+.t b{display:block}.t span,.why{font-size:.85rem;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi b{font-size:1.8rem;color:var(--pri);display:block;line-height:1.3}
+table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:500}
+.tl{list-style:none;margin:0;padding:0 14px 0 0;border-right:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 12px 0}.tl li:before{content:"";position:absolute;right:-21px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--pri)}
+.tl time{color:var(--mut);font-size:.85rem;margin-left:10px}
+.note{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:.88rem;color:var(--mut)}
+.warn{border-right:4px solid #c4552d;background:var(--bg);padding:10px 12px;border-radius:8px;margin-top:8px;font-size:.9rem}
+.bar{height:10px;background:var(--line);border-radius:6px;margin:3px 0 8px}.bar i{display:block;height:100%;background:var(--pri);border-radius:6px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--mut);margin-top:6px}
+svg{max-width:100%;height:auto}.mapbox{overflow:auto;border:1px solid var(--line);border-radius:12px}.mapbox svg{display:block;width:100%;min-width:0;height:auto}.z .mapbox svg{width:1600px}
+
+:root{--bg:#f2f5f1;--pri:#0b6b5f;--acc:#d9a21b}
+body{font-size:16px}
+.top{position:sticky;top:0;z-index:5;background:var(--pri);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-radius:0 0 16px 16px;margin:-16px -16px 12px}
+.top b{font-size:1.15rem}
+nav{position:sticky;top:48px;z-index:4;background:var(--bg);padding:8px 0 8px;margin-bottom:8px}
+nav button{font-size:.95rem;padding:9px 15px;font-weight:500}
+.card{border-radius:16px;border-top:4px solid var(--pri);box-shadow:0 2px 10px rgba(11,60,50,.07)}
+h2{font-size:1.15rem;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{padding:12px 20px;font-size:1rem;border-radius:12px}
+.kpi{border-top:4px solid var(--acc)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.flow div{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:14px;padding:12px;font-weight:700}
+.flow i{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--pri);color:#fff;font-style:normal;margin-left:8px}
+.flow small{display:block;font-weight:400;color:var(--mut)}
+.mapbox{max-height:75vh;overflow:auto}.mapbox svg{max-width:none!important}
+.zb{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.zb .btn{margin-top:0}
+.ok{background:#cfe9d9;color:#1d5a37}.fut{background:var(--line);color:var(--mut)}
+main{max-width:1100px}
+.c1,.c2,.c3{transition:opacity .5s}
+svg[data-st="1"] .c2,svg[data-st="1"] .c3,svg[data-st="2"] .c3{opacity:0}
+.fs{position:fixed;inset:0;z-index:50;background:var(--bg);padding:12px;overflow:auto}.fs .mapbox{max-height:78vh}
+svg[data-st="0"] .c1,svg[data-st="0"] .c2,svg[data-st="0"] .c3{opacity:0}
+</style>
+<style id="faed-polish">
+:root{--bg:#f3f6f2;--card:#fff;--ink:#173b36;--mut:#5c716c;--line:#d9e3dc;--pri:#0b6b5f;--acc:#d9a21b;--shadow:0 8px 24px rgba(18,48,47,.07)}
+body{background:linear-gradient(180deg,#eaf2ec 0, var(--bg) 250px);font-size:16px;line-height:1.75}
+main{max-width:1180px;padding:16px clamp(12px,3vw,28px) 36px}
+.top{box-shadow:0 6px 18px rgba(8,50,43,.16);min-height:58px;padding:10px 20px;margin-left:calc(-1 * clamp(12px,3vw,28px));margin-right:calc(-1 * clamp(12px,3vw,28px));border-radius:0 0 18px 18px}
+.top b{letter-spacing:.01em}
+nav{gap:8px;padding:10px 2px 12px;scrollbar-width:thin;backdrop-filter:blur(12px)}
+nav button{min-height:42px;transition:background .18s,border-color .18s,transform .18s}
+nav button:hover,.acc button:hover,.btn:hover{transform:translateY(-1px)}
+.screen{animation:fadeIn .2s ease-out}.card{padding:clamp(14px,2.2vw,22px);border-radius:18px;border-top-width:4px;box-shadow:var(--shadow);overflow-x:auto}
+.card h2{line-height:1.5}.sub,.why{line-height:1.7}
+input,select,textarea{min-height:44px;border-radius:10px;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 3px rgba(11,107,95,.13)}
+input[type=checkbox]{accent-color:var(--pri)}
+.btn{min-height:44px;box-shadow:0 3px 9px rgba(11,107,95,.12);transition:transform .18s,filter .18s}.btn:hover{filter:brightness(1.04)}
+.acc button{min-height:68px;box-shadow:0 3px 12px rgba(18,48,47,.04)}
+table{min-width:560px}th{white-space:nowrap}td{vertical-align:top}
+.tag{line-height:1.65}.note,.warn{line-height:1.75}
+.faed-local-banner{display:flex;gap:10px;align-items:flex-start;background:#fff8e4;color:#59430b;border:1px solid #eedb9d;border-radius:12px;padding:11px 14px;margin:10px 0 14px;font-size:.9rem}
+.faed-local-card{border-top-color:var(--acc)}.faed-local-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.faed-local-row:last-child{border-bottom:0}.faed-local-meta{font-size:.86rem;color:var(--mut)}.faed-empty{padding:16px;border:1px dashed var(--line);border-radius:12px;color:var(--mut);text-align:center}
+@keyframes fadeIn{from{opacity:.65;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){body{font-size:15px}main{padding-top:10px}.top{margin-left:-12px;margin-right:-12px;padding:9px 14px}nav{top:48px}nav button{padding:8px 12px}.card{margin-bottom:10px}.row{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi{padding:11px}.kpi b{font-size:1.45rem}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.faed-local-row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""><style id="faed-map-lab-css">#faed-live-map{height:min(58vh,520px);min-height:340px;border-radius:14px;z-index:1}.lab-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:14px}.lab-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.lab-form .wide{grid-column:1/-1}.lab-list{display:grid;gap:8px}.lab-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:9px}.lab-item select{min-height:36px;padding:4px}.lab-actions{display:flex;gap:6px;flex-wrap:wrap}.lab-actions .btn{margin:0;padding:6px 10px;min-height:36px;font-size:.83rem}.lab-status{padding:11px;border-radius:10px;background:var(--bg);margin:8px 0}.lab-route{border-right:4px solid var(--pri);padding:10px 12px;margin:8px 0;background:var(--bg);border-radius:8px}.lab-chips{display:flex;gap:7px;flex-wrap:wrap}.lab-chips label{margin:3px 0;color:var(--ink);display:inline-flex;gap:5px;align-items:center}.leaflet-popup-content{direction:rtl;text-align:right}@media(max-width:760px){.lab-grid{grid-template-columns:1fr}#faed-live-map{height:380px;min-height:320px}.lab-form{grid-template-columns:1fr}.lab-form .wide{grid-column:auto}}@media(max-width:440px){#faed-live-map{height:320px;min-height:280px}}</style><style id="faed-account-analytics-css">.acc{gap:14px}.acc .role-card{position:relative;display:grid;grid-template-columns:56px 1fr;grid-template-rows:auto auto;column-gap:13px;align-items:center;text-align:right;min-height:92px;padding:16px 18px;border-radius:16px;border:1px solid var(--line);border-right:4px solid var(--pri);box-shadow:0 5px 16px rgba(18,48,47,.07);transition:transform .18s,box-shadow .18s,border-color .18s}.acc .role-card:hover,.acc .role-card:focus-visible{transform:translateY(-2px);box-shadow:0 9px 22px rgba(18,48,47,.12);border-color:var(--pri)}.role-icon{grid-row:1/3;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:color-mix(in srgb,var(--pri) 11%,var(--card));font-size:1.65rem}.role-title{font-size:1.04rem}.role-desc{font-size:.83rem;font-weight:400;color:var(--mut);line-height:1.5}.role-card:first-child .role-icon{background:color-mix(in srgb,var(--acc) 20%,var(--card))}#an2 .compare-box{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;background:var(--bg)}#an2 .compare-row{display:grid;grid-template-columns:90px 1fr 85px;gap:8px;align-items:center;font-size:.9rem}.compare-bar{height:11px;border-radius:8px;background:var(--line);overflow:hidden}.compare-bar i{height:100%;display:block;background:var(--pri);border-radius:8px}.analytics-warning{padding:12px 14px;border-radius:10px;background:#fff4e7;border-right:4px solid var(--org);color:var(--ink);margin-top:10px}.analytics-good{padding:12px 14px;border-radius:10px;background:#e8f4eb;color:var(--ink);margin-top:10px}@media(max-width:560px){.acc{grid-template-columns:1fr 1fr}.acc .role-card{grid-template-columns:42px 1fr;gap:8px;padding:12px;min-height:82px}.role-icon{width:40px;height:40px;font-size:1.3rem}.role-title{font-size:.92rem}.role-desc{font-size:.76rem}}@media(max-width:370px){.acc{grid-template-columns:1fr}}</style></head>
+<body>
+<main>
+<header class="top"><b>🌿 فائض | FAED</b><span class="tag sim">نموذج تجريبي</span></header>
+<nav role="tablist" id="tabs"></nav>
+
+<section class="screen on" id="s0">
+<h1>فائض | FAED</h1>
+<p class="sub" style="font-size:1.05rem;color:var(--pri);font-weight:700">من الفائض إلى الأثر</p>
+<div class="card"><h2>منصة ذكية لإدارة فائض الطعام</h2>
+<p style="margin:0">نتنبأ بالفائض، ونُحسّن جمعه ونقله، ونوصله إلى الجهات المستفيدة مع تتبع كامل للعملية.</p>
+<p class="sub" style="margin-top:14px">اختر نوع الحساب</p>
+<div class="acc" id="acc"></div>
+<p class="note" style="margin-top:12px"><span class="tag sim">نموذج تجريبي</span> الخرائط والأرقام والتنبؤ والمستشعرات محاكاة لغرض العرض، وستُربط في النسخة التالية بالخرائط وقاعدة البيانات والحساسات.</p></div>
+<div class="flow"><div><i>1</i>سجّل الفائض<small>قاعة أو مطعم</small></div><div><i>2</i>مطابقة ذكية<small>أولوية + سيارة + جهة</small></div><div><i>3</i>نقل وتتبع<small>مسار على الطرق + QR</small></div><div><i>4</i>تسليم وأثر<small>تأكيد الجهة وتحليل</small></div></div>
+</section>
+
+<section class="screen" id="s1">
+<div class="card"><h2>ملف المنشأة <span class="tag" id="pst">غير محفوظ</span></h2>
+<p class="why">يُسجَّل مرة واحدة، ثم يكتفي كل طلب بالأصناف والكمية.</p>
+<div class="row"><div><label>اسم المنشأة (إلزامي)</label><input id="pn"></div>
+<div><label>نوع المنشأة</label><select id="pt"><option>قاعة مناسبات</option><option>مطعم</option><option>أخرى</option></select><input id="po" placeholder="اكتب النوع" hidden style="margin-top:6px"></div></div>
+<div class="row"><div><label>المدينة</label><input id="pc" value="بريدة"></div><div><label>الحي</label><input id="pd"></div>
+<div><label>الموقع</label><button class="btn alt" style="margin:0;width:100%" id="loc">📍 استخدم موقعي الحالي</button></div></div>
+<label>أو الصق رابط الموقع من خرائط جوجل</label><input id="pl" placeholder="https://maps.google.com/...">
+<p class="why" id="lst"></p>
+<div class="row"><div><label>نقطة الاستلام</label><select id="pp"><option>مدخل الخدمة / المطبخ</option><option>موقف خلفي</option></select></div>
+<div><label>توضيح نقطة الاستلام</label><input id="pw" placeholder="مثال: الباب الخلفي، بجانب المطبخ"></div>
+<div><label>رقم التواصل عند الوصول (إلزامي)</label><input id="pm" type="tel" inputmode="tel" placeholder="05xxxxxxxx"></div></div>
+<label style="display:flex;gap:8px;color:var(--ink)"><input type="checkbox" id="ph" checked style="width:auto;margin-top:6px">إخفاء اسم المنشأة وصاحب المناسبة عن الجهة المستفيدة</label>
+<button class="btn" id="sp">حفظ الملف</button></div>
+<div class="card"><h2>طلب خدمة</h2><p class="note" id="who"></p><button class="btn alt" id="faed-open-analysis" type="button">📊 تحليل هدر منشأتي</button>
+<label>نوع الطلب</label><select id="rt"><option value="now">فائض حالي</option><option value="exp">فائض متوقع (حجز مبدئي)</option></select>
+<label>الأصناف (كل صنف بكميته)</label><div id="its"></div>
+<label>وقت توفر الفائض</label><input type="time" value="22:30" id="tm">
+<label style="display:flex;gap:8px;color:var(--ink)"><input type="checkbox" id="ack" checked style="width:auto;margin-top:6px">أقر بأن الطعام غير مقدم للضيوف، وأنه فائض سليم بعد إغلاق التقديم، وفق مسؤولية المنشأة ومتطلبات السلامة الغذائية.</label>
+<button class="btn" id="submit">أرسل الطلب</button><p id="res" class="note" hidden></p></div>
+</section>
+
+<section class="screen" id="s2">
+<div class="card"><h2>المطابقة الذكية <span class="tag sim">نموذج تجريبي</span></h2>
+<div id="map1"></div>
+<button class="btn" id="run">▶ شغّل الرحلتين</button>
+<div class="note" style="margin-top:10px;line-height:2"><b>دليل الخريطة</b><br>🏛️ قاعة مناسبات · 🍽️ مطعم: مصدر الفائض (حلقة برتقالية)<br>🤝 🏠 جهة مستفيدة: حلقة خضراء = متاحة، رمادية مع ✕ = غير متوفرة<br>🚚 شاحنة بلون مسارها · الأرقام = ترتيب المحطات<br>خط رمادي منقط = جهة لم تُختر، وسببها مكتوب عليه<br><b>الشاحنة 01:</b> 1 قاعة الياسمين ← 2 مطعم مندي الديرة ← 3 جمعية الخير<br><b>الشاحنة 02:</b> 1 مطعم الواحة ← 2 دار الإيواء</div>
+<p class="note" style="margin-top:10px">مخطط توضيحي للمدينة: المسارات على الطرق الرئيسية، والمواقع والمسافات افتراضية. على الجوال مرّر الخريطة جانبيًا أو اضغط تكبير.</p></div>
+<div class="card"><h2>كيف اختار النظام الجهة؟</h2>
+<div class="req"><div><b style="color:#2b6cb0">الشاحنة 01 · المنطقة الشرقية</b><div class="why">بعد آخر استلام: جمعية البر الأقرب (1.4 كم) لكنها غير متوفرة، فاختار جمعية الخير (2.8 كم) لأنها أقرب جهة متاحة، وتجاوز جمعية الأسر (3.6 كم).</div></div><span class="tag lo">70 كجم</span></div>
+<div class="req"><div><b style="color:#8e44ad">الشاحنة 02 · المنطقة الغربية</b><div class="why">بعد الاستلام من مطعم الواحة: جمعية الفلاح الأقرب (1.9 كم) لكنها غير متوفرة، فاختار دار الإيواء (2.1 كم) وتجاوز جمعية الروضة (3.0 كم).</div></div><span class="tag lo">30 كجم</span></div></div>
+<div class="card"><h2>الخطة الأفضل</h2>
+<div class="req"><div><b>الشاحنة 01 · سعة 80 كجم</b><div class="why">تبعد 2.9 كم عن القاعة · 3 نقاط توقف · مسافة الرحلة 7.6 كم</div></div><div style="text-align:center"><span class="score">94/100</span><div class="why">كفاءة الرحلة</div></div></div>
+<div class="req"><div><b>الشاحنة 02 · سعة 60 كجم</b><div class="why">نقطتا توقف · مسافة الرحلة 7.0 كم</div></div><div style="text-align:center"><span class="score">91/100</span><div class="why">كفاءة الرحلة</div></div></div>
+<p class="why" style="margin:8px 0 0">دمج الرحلات: قاعة الياسمين 45 كجم + مطعم مندي الديرة 25 كجم على شاحنة واحدة بدل رحلتين.</p></div>
+<div class="card"><h2>درجة أولوية الطلبات</h2><div class="why">الوقت + الكمية + الموقع + نوع الطعام + قدرة الاستقبال</div>
+<div class="req"><div><b>قاعة الياسمين · 45 كجم</b><div class="why">الوقت المتاح للاستفادة: 2.5 ساعة</div></div><div><span class="score">92/100</span> <span class="tag hi">أولوية عالية</span></div></div>
+<div class="req"><div><b>مطعم الواحة · 30 كجم</b><div class="why">الوقت المتاح للاستفادة: 3 ساعات</div></div><div><span class="score">81/100</span> <span class="tag md">متوسطة</span></div></div>
+<div class="req"><div><b>مطعم مندي الديرة · 25 كجم</b><div class="why">الوقت المتاح للاستفادة: 4 ساعات · على طريق القاعة</div></div><div><span class="score">74/100</span> <span class="tag md">متوسطة</span></div></div></div>
+<div class="card"><h2>حالة الجهات المستفيدة</h2>
+<table><tr><th>الجهة</th><th>الحالة</th><th>القدرة</th><th>القرار</th></tr>
+<tr><td>جمعية البر</td><td>⚪ غير متوفرة</td><td>0</td><td>تم تجاوزها</td></tr>
+<tr><td>جمعية الخير</td><td>🟢 متاحة</td><td>80 كجم</td><td>✅ الشاحنة 01</td></tr>
+<tr><td>جمعية الأسر</td><td>🟢 متاحة</td><td>50 كجم</td><td>أبعد من الخير</td></tr>
+<tr><td>جمعية الفلاح</td><td>⚪ غير متوفرة</td><td>0</td><td>تم تجاوزها</td></tr>
+<tr><td>دار الإيواء</td><td>🟢 متاحة</td><td>40 كجم</td><td>✅ الشاحنة 02</td></tr>
+<tr><td>جمعية الروضة</td><td>🟢 متاحة</td><td>30 كجم</td><td>أبعد من الإيواء</td></tr></table></div>
+<div class="card"><h2>حالات خاصة</h2>
+<div class="warn">⚠️ حمولة 120 كجم والشاحنات المتاحة 40 + 50 + 30: لا توجد مركبة منفردة مناسبة. <b>الاقتراح:</b> تقسيم الحمولة على مركبتين.</div>
+<div class="warn">⚠️ لا توجد جهة واحدة قادرة على استقبال الشحنة كاملة. <b>الاقتراح:</b> جمعية أ ← 50 كجم · جمعية ب ← 30 كجم · جمعية ج ← 40 كجم.</div></div>
+</section>
+
+<section class="screen" id="s3">
+<div class="card"><h2>وضع عدم الاتصال <span class="tag sim">محاكاة</span></h2>
+<div class="req"><span class="tag" id="net">🟢 متصل</span><button class="btn" style="margin:0" id="nt">قطع / إعادة الاتصال</button></div>
+<p class="why">الأحداث المعلقة للمزامنة: <b id="qn">0</b> · اضغط محطة من المحطات بعد قطع الاتصال لترى الحفظ المحلي</p>
+<div class="note" id="log" style="max-height:130px;overflow:auto">سجل الأحداث:</div></div>
+<div class="card"><h2>المهمة الحالية <span class="tag">SH-2610-047</span></h2>
+<label>السائق</label><select id="drv"><option value="0">سائق 01 · الشاحنة 01</option><option value="1">سائق 02 · الشاحنة 02</option></select><p class="sub" id="dsum" style="margin-top:8px"></p><div id="map3"></div><div id="stops" style="margin-top:8px"></div><p class="why">أرقام وتوضيحات الوجهات غير المحفوظة من ملفك أو ملف جمعيتك أرقام تجريبية.</p>
+<p class="note">حرارة الصندوق: مستشعر الحرارة — نسخة مستقبلية</p></div>
+<div class="card"><h2>الرحلات القادمة</h2><table><tr><th>الرحلة</th><th>الحمولة</th><th>الوقت</th></tr>
+<tr><td>SH-047</td><td>70 كجم</td><td>22:40</td></tr><tr><td>SH-048</td><td>35 كجم</td><td>23:10</td></tr></table></div>
+</section>
+
+<section class="screen" id="s4">
+<div class="card"><h2>ملف الجمعية <span class="tag" id="ast">تجريبي</span></h2>
+<div class="row"><div><label>اسم الجمعية</label><input id="an" value="جمعية الخير" readonly></div><div><label>المدينة / الحي</label><input id="ad" value="بريدة"></div><div><label>السعة المتاحة (كجم)</label><input type="number" id="ac" value="80"></div></div><div class="row"><div><label>موقع الجمعية</label><button class="btn alt" id="aloc" type="button">📍 استخدم موقعي الحالي</button><p class="why" id="alocstatus"></p></div><div><label for="alnk">أو رابط الموقع من خرائط Google</label><input id="alnk" placeholder="الصق رابط الموقع"></div></div>
+<label>الأصناف التي تقبلها</label><div id="aits"></div>
+<div class="row"><div><label>توضيح نقطة التسليم</label><input id="aw" placeholder="مثال: مدخل المستودع"></div><div><label>رقم التواصل عند الوصول</label><input id="am" type="tel" inputmode="tel" placeholder="05xxxxxxxx"></div></div>
+<label>الحالة الآن</label><select id="as"><option value="1">🟢 متاحة للاستقبال</option><option value="0">⚪ غير متوفرة</option></select>
+<button class="btn" id="sa">حفظ ملف الجمعية</button><p class="why">تغيير الحالة يظهر في لوحة الإدارة وخريطتها.</p></div>
+<div class="card"><h2>جمعية الخير · الشحنات القادمة</h2>
+<div class="req"><div><b>SH-2610-047</b><div class="why">70 كجم · 🚚 الشاحنة 01 · الوصول المتوقع 23:25</div></div><span class="tag" id="bst">🔵 في الطريق</span></div>
+<button class="btn" id="recv">تأكيد الاستلام</button></div>
+<div class="card"><h2>الإشعارات <span class="tag sim">مستقبلية</span></h2>
+<p style="margin:0">🔔 يوجد فائض جديد على بعد 2.3 كم.<br>🔔 تم تغيير المسار بسبب إضافة طلب جديد.</p></div>
+</section>
+
+<section class="screen" id="s5">
+<div class="card" style="text-align:center"><h2>شحنة SH-2610-047</h2>
+<svg width="140" height="140" viewBox="0 0 21 21" shape-rendering="crispEdges" id="qr" role="img" aria-label="رمز QR تمثيلي"></svg>
+<p class="sub">رمز QR زخرفي غير قابل للمسح في هذه النسخة؛ لا يوجد معرّف شحنة على خادم</p></div>
+<div class="card"><h2>سجل الشحنة</h2><ul class="tl">
+<li><time>22:40</time>تم تسجيل الفائض</li><li><time>22:43</time>تم اختيار السيارة</li><li><time>22:51</time>السائق بدأ المهمة</li>
+<li><time>23:05</time>تم الاستلام</li><li><time>23:25</time>تم التسليم</li><li><time>23:25</time>تم إغلاق الشحنة</li></ul></div>
+</section>
+
+<section class="screen" id="s6">
+<div class="card"><h2>توقع الفائض <span class="tag sim">نموذج تجريبي</span></h2>
+<p style="margin:0">قاعة الياسمين · عدد الحضور المتوقع: <b>500</b><br>الفائض المتوقع: <b>55–65 كجم</b> · درجة الثقة: <b>87%</b></p>
+<p class="note" style="margin-top:10px">💡 توصية النظام: تجهيز خطة استلام مسبقة قبل انتهاء المناسبة.</p></div>
+<div class="card"><h2>آخر المناسبات</h2><table><tr><th>المناسبة</th><th>الحضور</th><th>الفائض</th></tr>
+<tr><td>زواج</td><td>500</td><td>62 كجم</td></tr><tr><td>مناسبة</td><td>450</td><td>51 كجم</td></tr><tr><td>زواج</td><td>600</td><td>74 كجم</td></tr></table></div>
+<div class="card"><h2>📰 أخبار <span id="nn"></span></h2><div id="news"></div><p class="why">حد التنبيه: ارتفاع 15% عن الفترة السابقة (قابل للضبط)</p></div>
+<div class="card"><h2>تحليل الهدر المسجل <span class="tag">بيانات هذا المتصفح</span></h2><div class="zb" id="per"><button class="btn alt" data-p="w">يوم</button><button class="btn" data-p="m">شهر</button><button class="btn alt" data-p="y">سنة</button></div><div id="an2" style="margin-top:10px"></div></div>
+</section>
+
+<section class="screen" id="s7">
+<h2>اليوم <span class="tag sim">أرقام تجريبية</span></h2>
+<div class="grid">
+<div class="kpi"><b>280 كجم</b>الفائض المسجل</div><div class="kpi"><b>230 كجم</b>الفائض الذي أُنقذ</div>
+<div class="kpi"><b>82%</b>نسبة الإنقاذ</div><div class="kpi"><b>24</b>عدد العمليات</div><div class="kpi"><b>8</b>الجهات المستفيدة</div></div>
+<div class="card"><h2>مركز التحكم</h2><div id="map2"></div><button class="btn" id="run2">▶ شغّل الرحلتين</button>
+<div class="legend"><span>🟠 إنتاج الفائض</span><span>🟢 جهة متاحة</span><span>⚪ جهة غير متوفرة</span><span>🚚 الشاحنات</span></div></div>
+<div class="card"><h2>السائقون <span class="tag sim">محاكاة</span></h2><div id="dr"></div><p class="why">التتبع الحقيقي يحتاج تطبيق السائق وGPS.</p></div><div class="card"><h2>الجمعيات</h2><div id="asl"></div></div>
+<div class="card"><h2>مقارنة قبل وبعد <span class="tag sim">محاكاة</span></h2>
+<table><tr><th></th><th>الرحلات</th><th>المسافة</th></tr><tr><td>قبل</td><td>10</td><td>120 كم</td></tr><tr><td>بعد تحسين المسارات</td><td>7</td><td>82 كم</td></tr><tr><td><b>النتيجة</b></td><td>↓ 30%</td><td>↓ 32%</td></tr></table>
+<p class="why">الأرقام للنموذج التجريبي وليست نتائج ميدانية. الانبعاثات غير محسوبة حتى تتوفر منهجية ومصدر موثوق.</p></div>
+</section>
+<section class="screen" id="s8">
+<div class="card"><h2>متطلبات قبول الفائض</h2>
+<table><tr><th>المتطلب</th><th>المسؤول</th><th>كيف تتحقق المنصة</th></tr>
+<tr><td>الطعام غير مقدم للضيوف</td><td>المنشأة</td><td>إقرار إلزامي عند التسجيل</td></tr>
+<tr><td>تحديد الوقت المتاح للاستفادة</td><td>المنشأة</td><td>حقل إلزامي يدخل في درجة الأولوية</td></tr>
+<tr><td>حاجة الطعام للتبريد أو النقل الحراري</td><td>المنشأة</td><td>يحدد نوع المركبة المناسبة</td></tr>
+<tr><td>مركبة مناسبة للحمولة</td><td>الأسطول</td><td>استبعاد المركبات غير المطابقة للسعة والنوع</td></tr>
+<tr><td>جهة تقبل النوع ولديها قدرة</td><td>الجهة المستفيدة</td><td>حالة متوفرة / غير متوفرة وقدرة بالكجم</td></tr>
+<tr><td>توثيق الاستلام والتسليم</td><td>السائق والجهة</td><td>QR وسجل زمني لكل شحنة</td></tr></table>
+<p class="note" style="margin-top:10px">الحدود الزمنية ودرجات الحرارة تحددها الجهات المنظمة. المنصة تجعلها قابلة للضبط ولا تفترض أرقامًا من عندها.</p></div>
+<div class="card"><h2>حالة المزايا في النموذج</h2>
+<table><tr><th>الميزة</th><th>الحالة</th></tr>
+<tr><td>تسجيل الفائض وإقرار السلامة</td><td><span class="tag ok">يعمل في النموذج</span></td></tr>
+<tr><td>درجة الأولوية واختيار الأقرب المتاح</td><td><span class="tag sim">محاكاة بمنطق ثابت</span></td></tr>
+<tr><td>دمج الرحلات وتوزيع الشاحنات</td><td><span class="tag sim">محاكاة</span></td></tr>
+<tr><td>وضع عدم الاتصال وطابور المزامنة</td><td><span class="tag ok">الطابور محلي، والخادم محاكاة</span></td></tr>
+<tr><td>التنبؤ بالفائض</td><td><span class="tag sim">محاكاة</span></td></tr>
+<tr><td>QR حقيقي مرتبط بقاعدة بيانات</td><td><span class="tag fut">نسخة قادمة</span></td></tr>
+<tr><td>خرائط حقيقية وتحسين مسارات فعلي</td><td><span class="tag fut">نسخة قادمة</span></td></tr>
+<tr><td>مستشعر الحرارة</td><td><span class="tag fut">نسخة قادمة</span></td></tr></table></div>
+
+<div class="card"><h2>حماية الضيافة ورضا العميل</h2>
+<p style="margin:0;line-height:2">• لا يبدأ أي استلام قبل تأكيد المنشأة إغلاق التقديم.<br>• لا يُسحب أي طبق من البوفيه أو الطاولات، فقط الفائض المفصول مسبقًا.<br>• السائق يصل في وقت متفق عليه عبر مدخل الخدمة، ولا يدخل مكان الضيوف.<br>• اسم المنشأة وصاحب المناسبة لا يظهران للجهة المستفيدة إلا بموافقتهم.<br>• شهادة أثر اختيارية تصل صاحب المناسبة بعد التسليم.</p>
+<p class="note" style="margin-top:10px">هذه قواعد تشغيل مقترحة تصمم المنصة على أساسها، والنموذج يعرض جزءًا منها فقط.</p></div>
+<div class="card"><h2>المسارات القادمة عند التوسع <span class="tag fut">نسخة قادمة</span></h2>
+<p class="why">الأولوية للجمعيات، ويمكن ربط مستفيدين أفراد عبر الجمعية عند الحاجة وبعد موافقتهم؛ ثم الجهات المتعاقدة، وبعدها مسارات الاستفادة الأخرى وفق الاشتراطات.</p>
+<table><tr><th>المسار</th><th>الفكرة</th><th>شرط قبل التنفيذ</th></tr>
+<tr><td>جهات متعاقدة</td><td>شركات ومنشآت ذات عمالة كبيرة تتعاقد لاستلام الفائض الصالح مقابل رسوم خدمة لوجستية</td><td>تحديد أولوية التوزيع حتى لا تُقدَّم على الجمعيات، والتحقق من التراخيص</td></tr>
+<tr><td>الأعلاف</td><td>الطعام غير الصالح للاستهلاك البشري يُحوَّل للمربين بسعر رمزي كمصدر دخل</td><td>يأتي بعد الإنسان والجهات المتعاقدة، والتحقق النظامي من اشتراطات الجهات المنظمة</td></tr>
+<tr><td>الاشتراكات</td><td>باقات تقارير وتحليلات للمنشآت</td><td>اختبار الاستعداد للدفع في التجربة الأولى</td></tr>
+<tr><td>المستفيدون الأفراد</td><td>سجل اختياري للمحتاجين ومواقعهم وأوقات استقبالهم، لربطهم مباشرة أو لتلبية طلب جمعية على مستفيدين</td><td>موافقة صريحة، حماية بيانات الموقع، وإتاحة السجل للمخولين فقط، مع اعتماد الجمعية قبل التوزيع</td></tr></table>
+<p class="note" style="margin-top:10px">هذه خطة توسع مستقبلية ولا تعمل في النموذج الحالي.</p></div>
+</section>
+</main>
+<script>
+const names=["الرئيسية","تسجيل الفائض","المطابقة الذكية","السائق","الجهة المستفيدة","تتبع الشحنة","التنبؤ والتحليل","لوحة الإدارة","المتطلبات"];
+const tabs=document.getElementById("tabs");
+function show(i){document.querySelectorAll(".screen").forEach((s,j)=>s.classList.toggle("on",i===j));
+tabs.querySelectorAll("button").forEach((b,j)=>b.setAttribute("aria-selected",i===j));scrollTo(0,0);try{[m1,m2].forEach(s=>T.forEach((_,i)=>mv(s,i,0)))}catch(e){}}
+names.forEach((n,i)=>{const b=document.createElement("button");b.textContent=n;b.setAttribute("role","tab");b.onclick=()=>show(i);tabs.appendChild(b)});
+[["🏢 مطعم / قاعة",1],["🚚 سائق",3],["🤝 جهة مستفيدة",4],["📊 إدارة",7]].forEach(([t,i])=>{const b=document.createElement("button");b.textContent=t;b.onclick=()=>show(i);document.getElementById("acc").appendChild(b)});
+show(0);
+
+document.getElementById("recv").onclick=()=>{document.getElementById("bst").textContent="✅ تم التسليم";document.getElementById("recv").textContent="✅ تم استلام الشحنة"};
+let on=true,q=[];
+try{q=JSON.parse(localStorage.getItem("faedQ")||"[]")}catch(e){}
+const lg=m=>{const l=document.getElementById("log");l.innerHTML+=`<div>[${new Date().toLocaleTimeString("ar-SA")}] ${m}</div>`;l.scrollTop=l.scrollHeight};
+const sv=()=>{document.getElementById("qn").textContent=q.length;try{localStorage.setItem("faedQ",JSON.stringify(q))}catch(e){}};
+function ev(x){q.push({event:x,at:new Date().toISOString()});sv();lg("حُفظ محليًا فقط؛ لا يوجد خادم مهيأ: "+x)}
+document.getElementById("nt").onclick=()=>{on=!on;document.getElementById("net").textContent=on?"🟡 اتصال المتصفح":"🔴 دون اتصال";
+if(on){lg("عاد الاتصال");if(q.length){lg("مزامنة "+q.length+" عمليات معلقة...");lg("لم تتم المزامنة؛ لا توجد خدمة خلفية مهيأة، وما زالت العمليات محلية")}else lg("لا توجد عمليات معلقة")}else lg("انقطع الاتصال، التسجيل يتم محليًا")};
+sv();
+
+const VB="0 0 1200 740";
+const T=[{n:"شاحنة 01",sv:[1,3,5],c:"#2b6cb0",r:[[924,660],[924,312],[924,240],[768,240],[600,240],[600,408]],last:[768,240],rej:[["bar","1.4 كم"],["asr","3.6 كم"]],ok:["cha","✅ الأقرب المتاح · 2.8 كم",690,462,"e"],st:[["hall",1],["rest",2],["cha",3]]},
+{n:"شاحنة 02",sv:[2,4],c:"#8e44ad",r:[[108,696],[108,240],[240,240],[240,132],[384,132]],last:[240,240],rej:[["fal","1.9 كم"],["rod","3.0 كم"]],ok:["sh","✅ الأقرب المتاح · 2.1 كم",424,132,"s"],st:[["oasis",1],["sh",2]]}];
+const P={hall:[924,312,"قاعة الياسمين","🏛️",1,964,312,"s"],rest:[768,240,"مطعم مندي الديرة","🍽️",1,768,184,"m"],oasis:[240,240,"مطعم الواحة","🍽️",1,280,240,"s"],
+bar:[768,408,"جمعية البر","🤝",0,768,462,"m"],cha:[600,408,"جمعية الخير","🤝",1,556,408,"e"],asr:[1080,120,"جمعية الأسر","🤝",1,1040,120,"e"],
+fal:[240,468,"جمعية الفلاح","🤝",0,280,468,"s"],sh:[384,132,"دار الإيواء","🏠",1,384,76,"m"],rod:[480,360,"جمعية الروضة","🤝",1,520,360,"s"]};
+const SRC=["hall","rest","oasis"];
+const d=r=>"M"+r.map(p=>p.join(",")).join(" L");
+function chip(x,y,s,col,an,tc,z){z=z||22;const w=Math.round(s.length*z*.52+28),x0=an==="e"?x-w:an==="s"?x:x-w/2;
+return `<rect x="${x0}" y="${y-z}" width="${w}" height="${z*2}" rx="${z}" fill="#fff" stroke="${col}" stroke-width="3" filter="url(#sh)"/><text x="${x0+w/2}" y="${y+z*.35}" text-anchor="middle" font-size="${z}" font-weight="700" fill="${tc||"#12302f"}">${s}</text>`}
+const bdg=(x,y,s,c)=>`<circle cx="${x}" cy="${y}" r="16" fill="${c}" stroke="#fff" stroke-width="3"/><text x="${x}" y="${y+7}" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">${s}</text>`;
+function bg(){let h=`<defs><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity=".25"/></filter></defs><rect width="1200" height="740" rx="22" fill="#e8eee9"/>
+<rect x="12" y="12" width="528" height="716" rx="18" fill="#8e44ad" opacity=".07"/><rect x="552" y="12" width="636" height="716" rx="18" fill="#2b6cb0" opacity=".07"/>
+<rect x="40" y="540" width="170" height="110" rx="26" fill="#bfe0c6" opacity=".7"/><rect x="420" y="560" width="190" height="120" rx="30" fill="#bfe0c6" opacity=".7"/><rect x="960" y="500" width="190" height="130" rx="30" fill="#bfe0c6" opacity=".7"/><path d="M0 600 C200 560 300 700 520 660 S800 700 1200 640 V740 H0Z" fill="#cfe3f2" opacity=".75"/>`;
+[108,240,384,600,768,924].forEach(x=>h+=`<line x1="${x}" y1="0" x2="${x}" y2="740" stroke="#cdd6d0" stroke-width="${x===600?20:14}"/><line x1="${x}" y1="0" x2="${x}" y2="740" stroke="#fff" stroke-width="${x===600?15:9}"/>`);
+[132,240,408,552].forEach(y=>h+=`<line x1="0" y1="${y}" x2="1200" y2="${y}" stroke="#cdd6d0" stroke-width="${y===408?20:14}"/><line x1="0" y1="${y}" x2="1200" y2="${y}" stroke="#fff" stroke-width="${y===408?15:9}"/>`);
+return h+`<text x="30" y="52" font-size="26" font-weight="700" fill="#8e44ad">المنطقة الغربية · الشاحنة 02</text><text x="1170" y="52" text-anchor="end" font-size="26" font-weight="700" fill="#2b6cb0">المنطقة الشرقية · الشاحنة 01</text>`}
+function draw(id,full,only){let h=bg();const TT=only==null?T:[T[only]];
+if(full)TT.forEach(t=>t.rej.forEach(([k,s])=>{const a=P[k];h+=`<g class="c1"><line x1="${t.last[0]}" y1="${t.last[1]}" x2="${a[0]}" y2="${a[1]}" stroke="#5b6664" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round"/>`;if(s)h+=chip(t.last[0]+(a[0]-t.last[0])*.55,t.last[1]+(a[1]-t.last[1])*.55-30,s,"#8a2f12","m","#8a2f12",20);h+="</g>"}));
+TT.forEach(t=>h+=`<path d="${d(t.r)}" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path class="rt" d="${d(t.r)}" fill="none" stroke="${t.c}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>`);
+Object.entries(P).forEach(([k,p])=>{const col=SRC.includes(k)?"#e07a26":p[4]?"#2e8b57":"#9aa5a2";
+h+=`<circle cx="${p[0]}" cy="${p[1]}" r="40" fill="${col}" opacity=".2"/><circle cx="${p[0]}" cy="${p[1]}" r="29" fill="${col}" stroke="#fff" stroke-width="5" filter="url(#sh)"/><circle cx="${p[0]}" cy="${p[1]}" r="21" fill="#fff"/><text x="${p[0]}" y="${p[1]+10}" text-anchor="middle" font-size="26" ${p[4]?"":'opacity=".45"'}>${p[3]}</text>`;
+if(!p[4])h+='<g class="c2">'+bdg(p[0]+26,p[1]-26,"✕","#c4552d")+"</g>";
+h+=chip(p[5],p[6],p[2],col,p[7],p[4]?"#12302f":"#5b6664");
+if(!p[4])h+='<g class="c2">'+chip(p[5],p[6]+40,"غير متوفرة","#c4552d",p[7],"#8a2f12",18)+"</g>"});
+TT.forEach(t=>t.st.forEach(([k,n])=>h+=bdg(P[k][0]+26,P[k][1]-26,n,t.c)));
+if(full)TT.forEach(t=>h+='<g class="c3">'+chip(t.ok[2],t.ok[3],t.ok[1],"#1d5a37",t.ok[4],"#1d5a37",20)+"</g>");
+TT.forEach(t=>h+=`<g class="tk" filter="url(#sh)"><circle r="34" fill="#fff" stroke="${t.c}" stroke-width="9"/><text y="14" text-anchor="middle" font-size="40">🚚</text>${chip(0,-58,t.n,t.c,"m",t.c,20)}</g>`);
+const el=document.getElementById(id);
+el.innerHTML=`<div class="mapbox"><svg viewBox="${VB}" role="img" aria-label="مخطط مسارات الشاحنات">${h}</svg></div><div class="zb"><button class="btn alt" onclick="zm(this,1.3)">＋ تكبير</button><button class="btn alt" onclick="zm(this,1/1.3)">－ تصغير</button><button class="btn alt" onclick="zm(this,0)">عرض كامل الخريطة</button><button class="btn alt" onclick="this.closest('[id^=map]').classList.toggle('fs')">⛶ ملء الشاشة</button>${full?'<button class="btn" onclick="ex(this)">▶ اشرح كيف اختار المسار</button>':''}</div>${full?'<p class="note cap">اضغط "اشرح كيف اختار المسار": تتحرك الشاحنة وتتوقف عند كل محطة، ويبقى الشرح حتى تضغط التالي.</p><p class="why cd"></p><button class="btn alt nx" hidden>التالي ▶</button>':''}`;
+const s=el.querySelector("svg");s.dataset.only=only==null?"":only;try{TT.forEach((_,i)=>mv(s,i,0))}catch(e){}return s}
+function zm(b,f){const s=b.closest('[id^="map"]').querySelector("svg");let z=+(s.dataset.z||1);z=f===0?1:Math.min(3,Math.max(1,z*f));s.dataset.z=z;s.style.width=z===1?"":Math.round(z*100)+"%";s.style.minWidth=""}
+function mv(s,i,f){const p=s.querySelectorAll(".rt")[i],q=p.getPointAtLength(f*p.getTotalLength());s.querySelectorAll(".tk")[i].setAttribute("transform",`translate(${q.x},${q.y})`)}
+let gen=0;const sl=ms=>new Promise(r=>setTimeout(r,ms));
+function mvT(s,i,a,b,ms){return new Promise(r=>{const t0=performance.now();(function f(n){const k=Math.min((n-t0)/ms,1);mv(s,i,a+(b-a)*k);k<1?requestAnimationFrame(f):r()})(t0)})}
+function fr(i,k){const r=T[i].r,L=[0];for(let j=1;j<r.length;j++)L.push(L[j-1]+Math.abs(r[j][0]-r[j-1][0])+Math.abs(r[j][1]-r[j-1][1]));return L[T[i].sv[k]]/L[L.length-1]}
+async function go(s){const g=++gen;delete s.dataset.st;const o=s.dataset.only,ix=o===""?[0,1]:[+o];ix.forEach((_,l)=>mv(s,l,0));
+await Promise.all(ix.map(async(ti,l)=>{let p=0;for(let k=0;k<T[ti].sv.length;k++){const q=fr(ti,k);await mvT(s,l,p,q,2800);if(g!==gen)return;await sl(5000);if(g!==gen)return;p=q}}))}
+const TS=[{tr:0,k:0,t:"الشاحنة 01 وصلت قاعة الياسمين: استلام 45 كجم بعد إغلاق التقديم من نقطة الاستلام المحددة."},
+{tr:0,k:1,t:"انتقلت إلى مطعم مندي الديرة (1.9 كم) واستلمت 25 كجم. صار في الشاحنة 70 كجم من سعة 80، فدُمج الطلبان في رحلة واحدة."},
+{tr:0,k:1,st:1,t:"الآن يقيس النظام المسافة من هنا إلى كل جهة مرشحة: جمعية البر 1.4 كم، جمعية الخير 2.8 كم، جمعية الأسر 3.6 كم."},
+{tr:0,k:1,st:2,t:"جمعية البر هي الأقرب لكنها غير متوفرة ✕، فيستبعدها النظام."},
+{tr:0,k:2,st:3,t:"اختار أقرب جهة متاحة: جمعية الخير (2.8 كم). وصلت الشاحنة وسلّمت 70 كجم."},
+{tr:1,k:0,t:"الشاحنة 02 في المنطقة الغربية وصلت مطعم الواحة: استلام 30 كجم."},
+{tr:1,k:0,st:1,t:"المرشحون من هنا: جمعية الفلاح 1.9 كم، دار الإيواء 2.1 كم، جمعية الروضة 3.0 كم."},
+{tr:1,k:0,st:2,t:"جمعية الفلاح هي الأقرب لكنها غير متوفرة ✕، فتُستبعد."},
+{tr:1,k:1,st:3,t:"اختار دار الإيواء (2.1 كم) وسلّمت الشاحنة 30 كجم. انتهى الشرح."}];
+async function ex(b){const el=b.closest('[id^="map"]'),s=el.querySelector("svg"),c=el.querySelector(".cap"),cd=el.querySelector(".cd"),nb=el.querySelector(".nx"),g=++gen;
+T.forEach((_,i)=>mv(s,i,0));const pos=[0,0];nb.hidden=false;
+for(let n=0;n<TS.length;n++){const p=TS[n];if(g!==gen)return;s.dataset.st=p.st||0;nb.disabled=true;nb.textContent=n<TS.length-1?"التالي ▶":"إنهاء ✔";cd.textContent="";c.textContent="الشاحنة "+(p.tr+1)+" تتحرك…";
+const q=fr(p.tr,p.k);if(q!==pos[p.tr]){await mvT(s,p.tr,pos[p.tr],q,2500);pos[p.tr]=q}
+if(g!==gen)return;c.textContent=(n+1)+"/"+TS.length+" · "+p.t;nb.disabled=false;let w=true;
+(async()=>{for(let k=5;k>0&&w&&g===gen;k--){cd.textContent="⏱ الشاحنة متوقفة "+k+" ث";await sl(1000)}if(w&&g===gen)cd.textContent="⏸ الشاحنة متوقفة حتى تضغط "+nb.textContent})();
+await new Promise(r=>nb.onclick=r);w=false}
+if(g===gen){delete s.dataset.st;nb.hidden=true;cd.textContent="";c.textContent="انتهى الشرح. اضغط «اشرح كيف اختار المسار» لإعادته."}}
+let m1=draw("map1",true),m2=draw("map2",false),m3=null;
+document.getElementById("run").onclick=()=>go(m1);
+document.getElementById("run2").onclick=()=>go(m2);
+(function(){const q=document.getElementById("qr");let h="",x=7;
+const f=(a,b)=>{h+=`<rect x="${a}" y="${b}" width="7" height="7" fill="currentColor"/><rect x="${a+1}" y="${b+1}" width="5" height="5" fill="var(--card)"/><rect x="${a+2}" y="${b+2}" width="3" height="3" fill="currentColor"/>`};
+f(0,0);f(14,0);f(0,14);
+for(let i=0;i<21;i++)for(let j=0;j<21;j++){if((i<8&&j<8)||(i>12&&j<8)||(i<8&&j>12))continue;x=(x*1103515245+12345)&0x7fffffff;if(x%3===0)h+=`<rect x="${i}" y="${j}" width="1" height="1" fill="currentColor"/>`}
+q.innerHTML=h;q.style.color="var(--ink)"})();
+
+const $=i=>document.getElementById(i);
+const ITEMS=[["أرز","حار"],["لحم","حار"],["خبز","عادي"],["حلى","مبرد"],["دجاج","حار"],["سمك","مبرد"]],CAP={cha:80,asr:50,sh:40,rod:30,bar:0,fal:0};
+let prof=null,ap=null;try{if(!localStorage.getItem("faedProfileCleanupV2")){localStorage.removeItem("faedProf");localStorage.removeItem("faedAssoc");localStorage.removeItem("faedAssocV2");localStorage.setItem("faedProfileCleanupV2","1")}prof=JSON.parse(localStorage.getItem("faedProf"));ap=JSON.parse(localStorage.getItem("faedAssoc"))}catch(e){}
+const itm=(id,q)=>$(id).innerHTML=ITEMS.map((x,i)=>`<div class="row" style="align-items:center;margin-top:6px"><label style="display:flex;gap:8px;margin:0;color:var(--ink)"><input type="checkbox" class="ic" ${q?"":"checked"} style="width:auto">${x[0]} <span class="tag">${x[1]}</span></label>${q?'<input type="number" min="0" placeholder="الكمية (كجم)" class="iq" disabled>':""}</div>`).join("");
+itm("its",1);itm("aits",0);
+document.querySelectorAll("#its .ic").forEach((c,i)=>c.onchange=()=>{const q=document.querySelectorAll("#its .iq")[i];q.disabled=!c.checked;if(c.checked)q.focus()});
+$("pt").onchange=()=>$("po").hidden=$("pt").value!=="أخرى";
+$("loc").onclick=()=>{const l=$("lst");if(!navigator.geolocation){l.textContent="المتصفح لا يدعم تحديد الموقع، الصق رابط الموقع.";return}navigator.geolocation.getCurrentPosition(p=>{l.dataset.g=p.coords.latitude.toFixed(5)+","+p.coords.longitude.toFixed(5);l.textContent="📍 تم تحديد الموقع: "+l.dataset.g},()=>{l.textContent="تعذر تحديد الموقع (قد يكون محجوبًا). الصق رابط الموقع من خرائط جوجل."})};
+function wp(){$("who").textContent=prof?`المنشأة: ${prof.n} · ${prof.t} · ${prof.c}${prof.d?" / "+prof.d:""}${prof.l?" · الموقع محفوظ":""}${prof.w?" · الاستلام: "+prof.w:""}${prof.m?" · للتواصل: "+prof.m:""}`:"احفظ ملف المنشأة أولًا.";$("pst").textContent=prof?"محفوظ":"غير محفوظ";$("pst").className="tag"+(prof?" ok":"")}
+$("sp").onclick=()=>{const n=$("pn").value.trim();if(!n){$("lst").textContent="اسم المنشأة إلزامي.";return}
+const ph=$("pm").value.replace(/\D/g,"");if(ph.length<9){$("lst").textContent="أدخل رقم تواصل صحيح للسائق عند الوصول.";return}
+prof={n,t:$("pt").value==="أخرى"?($("po").value||"أخرى"):$("pt").value,c:$("pc").value,d:$("pd").value,l:$("pl").value||$("lst").dataset.g||"",p:$("pp").value,w:$("pw").value.trim(),m:ph,h:$("ph").checked};
+try{localStorage.setItem("faedProf",JSON.stringify(prof))}catch(e){}wp();an();bs(+$("drv").value);$("lst").textContent="تم حفظ الملف، وصار الطلب القادم أسرع."};
+if(prof){$("pw").value=prof.w||"";$("pm").value=prof.m||"";$("pn").value=prof.n;$("pc").value=prof.c;$("pd").value=prof.d}
+$("submit").onclick=()=>{const r=$("res");r.hidden=false;if(!prof){r.textContent="احفظ ملف المنشأة أولًا.";return}
+const sel=ITEMS.filter((x,i)=>document.querySelectorAll("#its .ic")[i].checked&&+document.querySelectorAll("#its .iq")[i].value>0).map(x=>{const i=ITEMS.indexOf(x);return[x,+document.querySelectorAll("#its .iq")[i].value]});
+if(!sel.length){r.textContent="اختر صنفًا واحدًا على الأقل وحدد كميته.";return}
+if(!$("ack").checked){r.textContent="الإقرار مطلوب لإرسال الطلب.";return}
+const tot=sel.reduce((a,x)=>a+x[1],0),nm=sel.map(x=>x[0][0]+" "+x[1]+" كجم").join("، "),md=[...new Set(sel.map(x=>x[0][1]))].join(" + ");
+r.innerHTML=$("rt").value==="exp"?`تم حجز مبدئي لفائض متوقع ${tot} كجم (${nm}) من ${prof.n}. شاحنة وجمعية جاهزتان، ويتحول الحجز إلى طلب فعلي عند تأكيد الكمية، ويمكن إلغاؤه.`:`تم تسجيل ${tot} كجم (${nm}) من ${prof.n}. النقل المطلوب: ${md}. اختار المحرك الشاحنة 01 لأنها الأقرب. <button class="btn alt" style="margin:0 8px" id="go">اعرض المطابقة</button>`;
+if($("go"))$("go").onclick=()=>show(2)};
+const RT=[{sum:"إجمالي الحمولة: 70 كجم · المسافة 7.6 كم",s:[["قاعة الياسمين","استلام 45 كجم","2.9 كم · 22:58","وصلت"],["مطعم مندي الديرة","استلام 25 كجم","1.9 كم · 23:08","وصلت"],["جمعية الخير","تسليم 70 كجم (الأقرب المتاح)","2.8 كم · 23:25","سلّمت"]]},{sum:"إجمالي الحمولة: 30 كجم · المسافة 7.0 كم",s:[["مطعم الواحة","استلام 30 كجم","4.9 كم · 23:05","وصلت"],["دار الإيواء","تسليم 30 كجم (الأقرب المتاح)","2.1 كم · 23:20","سلّمت"]]}];
+const DC={"قاعة الياسمين":["مدخل الخدمة / المطبخ","الباب الخلفي","0500000001"],"مطعم مندي الديرة":["مدخل الخدمة","الباب الجانبي","0500000002"],"مطعم الواحة":["موقف خلفي","بوابة المطبخ","0500000003"],"جمعية الخير":["بوابة الاستقبال","مدخل المستودع","0500000004"],"دار الإيواء":["بوابة الاستقبال","مدخل الخدمة","0500000005"]};
+function cl(s){let c=DC[s[0]]||["","",""];if(s[0]==="قاعة الياسمين"&&prof)c=[prof.p||c[0],prof.w||c[1],prof.m||c[2]];if(s[0]==="جمعية الخير"&&ap&&(ap.w||ap.m))c=[c[0],ap.w||c[1],ap.m||c[2]];const k=s[1].startsWith("استلام")?"نقطة الاستلام":"نقطة التسليم";return `<span style="display:block;color:var(--ink)">📍 ${k}: ${c[0]}${c[1]?" — "+c[1]:""}${c[2]?` · 📞 <a href="tel:${c[2]}">${c[2]}</a>`:""}</span>`}
+function bs(i){const b=$("stops");b.innerHTML="";$("dsum").textContent=RT[i].sum;
+RT[i].s.forEach((s,k)=>{const d=document.createElement("div");d.className="stop";d.innerHTML=`<button class="dot" style="min-width:64px;border-radius:18px">${s[3]}</button><div class="t"><b>المحطة ${k+1}: 📍 ${s[0]}</b><span>${s[1]} · ${s[2]}</span>${cl(s)}</div>`;d.querySelector("button").onclick=()=>{d.classList.toggle("done");if(d.classList.contains("done"))ev(s[0]+" — "+s[3])};b.appendChild(d)});
+m3=draw("map3",false,i)}
+$("drv").onchange=()=>bs(+$("drv").value);bs(0);
+const DR=[["سائق 01","شاحنة 01","🟢 في مهمة","في الطريق إلى قاعة الياسمين","70 كجم"],["سائق 02","شاحنة 02","🟢 في مهمة","في الطريق إلى مطعم الواحة","30 كجم"],["سائق 03","شاحنة 03","🟡 متاح","نقطة التجمع","—"],["سائق 04","شاحنة 04","🔴 خارج الخدمة","—","—"]];
+function ra(){$("dr").innerHTML="<table><tr><th>السائق</th><th>الحالة</th><th>الموقع الحالي</th><th>الحمولة</th></tr>"+DR.map(x=>`<tr><td>${x[0]} · ${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td>${x[4]}</td></tr>`).join("")+"</table>";
+$("asl").innerHTML="<table><tr><th>الجمعية</th><th>الحالة</th><th>السعة</th></tr>"+Object.entries(P).filter(([k])=>!SRC.includes(k)).map(([k,p])=>`<tr><td>${p[2]}</td><td>${p[4]?"🟢 متاحة":"⚪ غير متوفرة"}</td><td>${p[4]?CAP[k]+" كجم":"—"}</td></tr>`).join("")+"</table>"}
+$("sa").onclick=()=>{P.cha[4]=+$("as").value;CAP.cha=+$("ac").value||0;ap={d:$("ad").value,c:$("ac").value,w:$("aw").value.trim(),m:$("am").value.replace(/\D/g,""),l:$("alnk").value.trim()||$("aloc").dataset.coords||""};try{localStorage.setItem("faedAssoc",JSON.stringify(ap))}catch(e){}ra();bs(+$("drv").value);m2=draw("map2",false);$("ast").textContent="محفوظ";$("ast").className="tag ok"};
+if(ap){$("aw").value=ap.w||"";$("am").value=ap.m||"";$("ad").value=ap.d;$("ac").value=ap.c;$("alnk").value=ap.l||"";CAP.cha=+ap.c||80}
+ra();
+const AD={w:{n:"الأسبوع",prev:"الأسبوع الماضي",d:[["أرز",24,22],["لحم",17,16],["خبز",11,11],["حلى",10,9]]},m:{n:"الشهر",prev:"الشهر الماضي",d:[["أرز",106,90],["لحم",76,74],["خبز",50,48],["حلى",48,45]]},y:{n:"السنة",prev:"السنة الماضية",d:[["أرز",1120,1000],["لحم",900,880],["خبز",600,590],["حلى",580,540]]}};
+let per="m";
+function an(){const a=AD[per],tot=a.d.reduce((x,y)=>x+y[1],0),mx=Math.max(...a.d.map(x=>x[1]));
+$("an2").innerHTML=`<p style="margin:0 0 8px">إجمالي الفائض في ${a.n}: <b>${tot} كجم</b></p>`+a.d.map(x=>`<div>${x[0]} — ${x[1]} كجم (${Math.round(x[1]*100/tot)}%)</div><div class="bar"><i style="width:${Math.round(x[1]*100/mx)}%"></i></div>`).join("");
+const up=a.d.filter(x=>(x[1]-x[2])/x[2]>=.15);
+$("news").innerHTML=up.length?up.map(x=>`<div class="warn">⚠️ ارتفع فائض ${x[0]} ${Math.round((x[1]-x[2])*100/x[2])}% عن ${a.prev}. ننصح بتقليل هذا الفائض عبر مراجعة كميات ${x[0]} مع الحفاظ على مستوى الضيافة.</div>`).join(""):`<p class="note">لا توجد ارتفاعات تتجاوز حد التنبيه في ${a.n}.</p>`;
+$("nn").textContent="· "+(prof?prof.n:"قاعة الياسمين");
+document.querySelectorAll("#per button").forEach(b=>b.className="btn"+(b.dataset.p===per?"":" alt"))}
+document.querySelectorAll("#per button").forEach(b=>b.onclick=()=>{per=b.dataset.p;an()});
+wp();an();
+</script>
+<script id="faed-local-functionality">
+(()=>{
+ const $=id=>document.getElementById(id), KEY="faedLocalRequestsV1", ASSOC_KEY="faedAssocV2", FOOD_KEY={"أرز":"rice","لحم":"meat","خبز":"bread","حلى":"dessert","دجاج":"chicken","سمك":"fish"};
+ const read=(k,fb)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??fb}catch{return fb}};
+ const safe=(s,n=180)=>String(s??"").trim().slice(0,n);
+ const root=$("s1"), pane=document.createElement("div");pane.className="card faed-local-card";pane.innerHTML='<h2>الطلبات المحفوظة على هذا الجهاز</h2><div class="faed-local-list"></div><p class="why" style="margin:10px 0 0">السجلات هنا محلية لهذا المتصفح فقط، ولا تصل تلقائيًا إلى السائق أو الجمعية أو الإدارة.</p>';root.appendChild(pane);
+ const drawRequests=()=>{const box=pane.querySelector(".faed-local-list"),items=read(KEY,[]);box.replaceChildren();if(!items.length){const e=document.createElement("div");e.className="faed-empty";e.textContent="لا توجد طلبات محفوظة بعد.";box.append(e);return}items.slice().reverse().forEach(r=>{const row=document.createElement("div");row.className="faed-local-row";const info=document.createElement("div"),title=document.createElement("b"),meta=document.createElement("div"),tag=document.createElement("span");title.textContent=(r.kind==="exp"?"فائض متوقع":"فائض حالي")+" · "+r.ref;meta.className="faed-local-meta";meta.textContent=r.org+" · "+r.items.map(x=>x.name+" "+x.kg+" كجم").join("، ")+" · جاهز "+r.ready;tag.className="tag sim";tag.textContent="محلي على الجهاز";info.append(title,meta);row.append(info,tag);box.append(row)})};
+ const matcher=()=>{let box=$("faed-match-result");if(!box){box=document.createElement("div");box.id="faed-match-result";box.className="card faed-local-card";const sec=$("s2");sec.insertBefore(box,sec.children[1]||null)}const reqs=read(KEY,[]),a=read(ASSOC_KEY,null),last=reqs[reqs.length-1];box.replaceChildren();const h=document.createElement("h2");h.textContent="فحص توافق محلي أولي";box.append(h);const p=document.createElement("p");p.className="note";if(!last){p.textContent="سجّل طلبًا محليًا أولًا لعرض فحص التوافق.";box.append(p);return}if(!a){p.textContent="لم يُحفظ ملف جمعية بهذا المتصفح، لذلك لم تُجرَ مطابقة.";box.append(p);return}const need=last.items.reduce((s,x)=>s+x.kg,0),accepted=Array.isArray(a.items)?a.items:[],missing=last.items.filter(x=>!accepted.includes(x.type)).map(x=>x.name),available=a.available===true,capacity=Number(a.capacity)||0;const reasons=[];if(!available)reasons.push("الجمعية مسجلة حاليًا كغير متاحة");if(capacity<need)reasons.push("السعة المتاحة ("+capacity+" كجم) أقل من كمية الطلب ("+need+" كجم)");if(missing.length)reasons.push("لا تقبل الأصناف: "+missing.join("، "));if(reasons.length){p.textContent="لا توجد مطابقة مؤهلة مع ملف الجمعية المحلي: "+reasons.join("؛ ")+"."}else{p.textContent="الطلب متوافق مبدئيًا مع ملف الجمعية المحلي من ناحية التوفر والسعة والأصناف. لم تُحسب المسافة أو وقت الوصول لأن مواقع الطرفين وبيانات الطرق غير متاحة."}box.append(p);const note=document.createElement("p");note.className="why";note.textContent="هذا فحص محلي لملف واحد في المتصفح؛ لا يمثل محرك مطابقة مشتركًا أو نتيجة تشغيلية.";box.append(note)};
+ drawRequests();
+ $("sp")?.addEventListener("click",()=>["pn","po","pc","pd","pl","pw","pm"].forEach(id=>{const e=$(id);if(e)e.value=e.value.replace(/[<>]/g,"")}),true);
+ $("sa")?.addEventListener("click",()=>["ad","ac","aw","am"].forEach(id=>{const e=$(id);if(e)e.value=e.value.replace(/[<>]/g,"")}),true);
+ $("submit")?.addEventListener("click",ev=>{ev.preventDefault();ev.stopImmediatePropagation();const res=$("res");res.hidden=false;const prof=read("faedProf",null);if(!prof){res.textContent="احفظ ملف المنشأة أولًا. لن يُسجّل الطلب قبل ذلك.";return}const name=safe(prof.n,100),phone=String(prof.m||"").replace(/\D/g,"");if(!name||phone.length<9){res.textContent="بيانات المنشأة أو رقم التواصل غير مكتملة؛ راجع الملف قبل التسجيل.";return}if(!safe(prof.l,120)){res.textContent="أضف موقع المنشأة عبر GPS أو رابط خرائط قبل تسجيل الطلب.";return}const entries=[...document.querySelectorAll("#its .ic")].map((c,i)=>({c,q:document.querySelectorAll("#its .iq")[i]})).filter(x=>x.c.checked).map(x=>({name:safe(x.c.parentElement.textContent.replace(/\s+/g," "),40).replace(/حار|عادي|مبرد/g,"").trim(),type:FOOD_KEY[safe(x.c.parentElement.textContent.replace(/\s+/g," "),40).replace(/حار|عادي|مبرد/g,"").trim()]||"",kg:Number(x.q?.value)}));if(!entries.length||entries.some(x=>!Number.isFinite(x.kg)||x.kg<=0)){res.textContent="اختر صنفًا واحدًا على الأقل وأدخل كمية موجبة وصحيحة لكل صنف.";return}if(!$("ack").checked){res.textContent="يلزم الإقرار بسلامة الفائض قبل حفظ الطلب.";return}const all=read(KEY,[]),ref="FD-"+Date.now().toString(36).toUpperCase(),item={ref,org:name,kind:$("rt").value,ready:$("tm").value,items:entries,created:new Date().toISOString(),location:safe(prof.l,120),status:"محفوظ محليًا"};all.push(item);try{localStorage.setItem(KEY,JSON.stringify(all))}catch{res.textContent="تعذر الحفظ المحلي. قد تكون مساحة التخزين ممتلئة أو غير متاحة.";return}res.textContent="حُفظ الطلب على هذا الجهاز فقط برقم "+ref+". لم يُرسل إلى خادم ولم تُحجز شاحنة أو جمعية.";drawRequests();matcher();window.dispatchEvent(new Event("faedRequestsChanged"))},true);
+ $("sa")?.addEventListener("click",()=>setTimeout(()=>{const a=read("faedAssoc",{});a.available=$("as").value==="1";a.capacity=Number($("ac").value)||0;a.items=[...document.querySelectorAll("#aits .ic")].filter(x=>x.checked).map(x=>FOOD_KEY[safe(x.parentElement.textContent.replace(/\s+/g," "),40).replace(/حار|عادي|مبرد/g,"").trim()]).filter(Boolean);try{localStorage.setItem(ASSOC_KEY,JSON.stringify(a))}catch{}matcher()},0));
+ document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>setTimeout(()=>{if($("s2").classList.contains("on"))matcher()},0)));
+ const banner=document.createElement("div");banner.className="faed-local-banner";banner.setAttribute("role","status");banner.textContent="نسخة تجريبية محلية: لا توجد قاعدة بيانات أو خدمة خلفية أو خرائط طرق مفعّلة. لا تُرسل البيانات خارج هذا المتصفح، والمسارات والأرقام الموجودة في العرض توضيحية.";$("s0").insertBefore(banner,$("s0").children[1]);
+})();
+</script><script id="faed-route-lab">
+(()=>{
+ const $=id=>document.getElementById(id),KEY="faedRouteLabV1",CENTER=[26.326,43.975],COLORS=["#087e70","#d07919","#6252a3","#2774ae"];
+ const areas={"وسط بريدة":[26.326,43.975],"شمال بريدة":[26.35,43.977],"جنوب بريدة":[26.303,43.975],"شرق بريدة":[26.329,44.006],"غرب بريدة":[26.326,43.945]};
+ const foods={rice:"أرز",meat:"لحم",bread:"خبز",dessert:"حلى",chicken:"دجاج",fish:"سمك"};
+ const seed={requests:[
+  {id:"r1",name:"قاعة الياسمين",area:"شمال بريدة",coords:[26.344,43.977],kg:45,foods:["rice","meat"],expires:180,cold:false},
+  {id:"r2",name:"مطعم مندي الديرة",area:"وسط بريدة",coords:[26.328,43.982],kg:25,foods:["rice","meat"],expires:240,cold:false},
+  {id:"r3",name:"مطعم الواحة",area:"جنوب بريدة",coords:[26.307,43.972],kg:30,foods:["rice","bread"],expires:210,cold:false},
+  {id:"r4",name:"مطعم بحر بريدة",area:"شرق بريدة",coords:[26.333,44.003],kg:20,foods:["fish"],expires:150,cold:true}],
+ recipients:[
+  {id:"a1",name:"جمعية الخير",area:"غرب بريدة",coords:[26.325,43.95],capacity:80,accepts:["rice","meat","bread","dessert","chicken","fish"],available:true},
+  {id:"a2",name:"جمعية البر",area:"وسط بريدة",coords:[26.322,43.982],capacity:55,accepts:["rice","meat","chicken"],available:true},
+  {id:"a3",name:"مركز حفظ النعمة",area:"شرق بريدة",coords:[26.331,44.012],capacity:100,accepts:["rice","meat","bread","dessert","chicken","fish"],available:true},
+  {id:"a4",name:"مطبخ الأمل",area:"جنوب بريدة",coords:[26.298,43.976],capacity:35,accepts:["rice","bread","dessert","fish"],available:false}],
+ drivers:[
+  {id:"d1",name:"سائق تجربة 01",area:"وسط بريدة",capacity:80,available:true,cold:true},
+  {id:"d2",name:"سائق تجربة 02",area:"غرب بريدة",capacity:60,available:true,cold:false},
+  {id:"d3",name:"سائق تجربة 03",area:"شرق بريدة",capacity:45,available:true,cold:true}]};
+ const read=()=>{try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&Array.isArray(d.requests)&&Array.isArray(d.recipients)&&Array.isArray(d.drivers))return d}catch{}try{localStorage.setItem(KEY,JSON.stringify(seed))}catch{}return JSON.parse(JSON.stringify(seed))};
+ let data=read(),map=null,markers=null,routes=null,draft=null,draftMarker=null,leafletReady=false;
+ const host=document.createElement("div");host.className="card faed-local-card";host.id="faed-route-lab-panel";host.innerHTML=`<h2>مختبر المطابقة ودمج الرحلات <span class="tag sim">بيانات تجربة محلية</span></h2><p class="note">اختر نقطة على خريطة بريدة الحقيقية لإضافة موقع دقيق، أو استخدم مركز الحي التقريبي. البيانات محفوظة في هذا المتصفح. محرك القرار تجريبي وقابل للتفسير، وليس نموذج تعلم آلي.</p><div id="faed-live-map" role="application" aria-label="خريطة بريدة التفاعلية"></div><p class="why" id="faed-map-status">جارٍ تهيئة الخريطة…</p><div class="lab-grid"><div><h2>إضافة نقطة اختبار</h2><div class="lab-form"><div><label for="lab-kind">نوع النقطة</label><select id="lab-kind"><option value="request">مطعم / طلب فائض</option><option value="recipient">جمعية / جهة مستفيدة</option><option value="driver">سائق / شاحنة</option></select></div><div><label for="lab-name">الاسم</label><input id="lab-name" maxlength="80" placeholder="مثال: مطعم التجربة"></div><div><label for="lab-area">الحي / منطقة السائق</label><select id="lab-area"></select></div><div class="lab-amount"><label for="lab-kg" id="lab-amount-label">كمية الفائض (كجم)</label><input id="lab-kg" type="number" min="1" max="5000" value="25"></div><div class="lab-expiry"><label for="lab-expiry">الوقت المتبقي قبل انتهاء صلاحية الاستلام (دقيقة)</label><input id="lab-expiry" type="number" min="15" max="1440" value="180"></div><div class="lab-chips wide" id="lab-foods"></div><label class="lab-cold wide"><input id="lab-cold" type="checkbox"> يتطلب تبريدًا</label><p class="why wide" id="lab-coord">لم تُحدد نقطة دقيقة؛ سيستخدم مركز الحي التقريبي.</p><button class="btn wide" id="lab-add">إضافة إلى تجربة المطابقة</button></div><div class="lab-actions" style="margin-top:8px"><button class="btn alt" id="lab-reset">إعادة بيانات التجربة</button><button class="btn" id="lab-run">حلّل المطابقة والمسارات</button></div><div id="lab-result" aria-live="polite"></div></div><div><h2>طلبات الفائض <span class="tag" id="lab-r-count"></span></h2><div class="lab-list" id="lab-requests"></div><h2 style="margin-top:14px">الجمعيات</h2><div class="lab-list" id="lab-recipients"></div><h2 style="margin-top:14px">السائقون ومناطقهم</h2><div class="lab-list" id="lab-drivers"></div></div></div><p class="why">مسارات الطرق تأتي من خدمة توجيه OSRM العامة وبيانات OpenStreetMap؛ المسافة والوقت تقدير للطريق ولا يتضمنان حركة المرور المباشرة. إذا تعذرت الخدمة، يعرض المختبر السبب ولا يرسم خطوطًا مستقيمة بديلة.</p>`;
+ const sec=$("s2");if(sec)sec.insertBefore(host,sec.firstChild);
+ const areaSelect=$("lab-area");Object.keys(areas).forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;areaSelect.append(o)});
+ const foodsBox=$("lab-foods");Object.entries(foods).forEach(([k,v])=>{const l=document.createElement("label"),i=document.createElement("input");i.type="checkbox";i.value=k;i.checked=true;l.append(i,document.createTextNode(v));foodsBox.append(l)});
+ function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch{status("تعذر حفظ بيانات التجربة محليًا؛ قد تكون مساحة التخزين ممتلئة.",true)}}
+ function status(t,bad=false){const e=$("faed-map-status");if(e){e.textContent=t;e.style.color=bad?"#a43322":""}}
+ function setDraft(latlng){draft=[latlng.lat,latlng.lng];$("lab-coord").textContent=`الموقع المختار: ${draft[0].toFixed(5)}, ${draft[1].toFixed(5)} — سينطبق على النقطة التالية التي تضيفها.`;if(map&&window.L){if(draftMarker)draftMarker.remove();draftMarker=L.circleMarker(draft,{radius:8,color:"#c4552d",fillOpacity:.8}).addTo(map)}}
+ function popupNode(x,kind){const d=document.createElement("div"),b=document.createElement("b"),s=document.createElement("div");b.textContent=x.name;s.textContent=kind+" · "+(x.area||"");d.append(b,s);return d}
+ function colorFor(kind){return kind==="request"?"#e07a26":kind==="recipient"?"#25834d":"#2874a6"}
+ function renderMap(){if(!leafletReady||!map)return;if(markers)markers.clearLayers();if(routes)routes.clearLayers();const all=[[data.requests,"request"],[data.recipients,"recipient"],[data.drivers,"driver"]];for(const [arr,k] of all)for(const x of arr){const ll=x.coords||areas[x.area]||CENTER,m=L.circleMarker(ll,{radius:k==="driver"?8:9,color:colorFor(k),fillColor:colorFor(k),fillOpacity:x.available===false?.4:.88,weight:2}).bindPopup(popupNode(x,k==="request"?"طلب فائض":k==="recipient"?"جمعية":"سائق"));m.addTo(markers)}if(draft&&draftMarker)draftMarker.addTo(map)}
+ function safeText(v){return String(v??"").slice(0,100)}
+ function row(text,sub,action){const d=document.createElement("div");d.className="lab-item";const info=document.createElement("div"),b=document.createElement("b"),s=document.createElement("div");b.textContent=text;s.className="why";s.textContent=sub;info.append(b,s);d.append(info,action);return d}
+ function button(label,fn,cls="btn alt"){const b=document.createElement("button");b.type="button";b.className=cls;b.textContent=label;b.onclick=fn;return b}
+ function remove(kind,id){data[kind]=data[kind].filter(x=>x.id!==id);save();render()}
+ function areaEditor(x,kind){const sel=document.createElement("select");Object.keys(areas).forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;if(n===x.area)o.selected=true;sel.append(o)});sel.setAttribute("aria-label","منطقة "+x.name);sel.onchange=()=>{x.area=sel.value;if(!x.coords||x.autoCoord){x.coords=areas[x.area];x.autoCoord=true}save();renderMap()};return sel}
+ function render(){const rr=$("lab-requests"),aa=$("lab-recipients"),dd=$("lab-drivers");rr.replaceChildren();aa.replaceChildren();dd.replaceChildren();$("lab-r-count").textContent=data.requests.length+" طلبات";
+  data.requests.forEach(x=>rr.append(row(x.name,`${x.area} · ${x.kg} كجم · ${x.foods.map(f=>foods[f]).join("، ")} · متبقٍ ${x.expires} دقيقة`,button("حذف",()=>remove("requests",x.id)))));
+  data.recipients.forEach(x=>{const controls=document.createElement("div");controls.className="lab-actions";controls.append(button(x.available?"إيقاف مؤقت":"إتاحة",()=>{x.available=!x.available;save();render()},"btn alt"),button("حذف",()=>remove("recipients",x.id)));aa.append(row(x.name,`${x.area} · سعة ${x.capacity} كجم · ${x.available?"متاحة":"غير متاحة"} · تقبل ${x.accepts.map(f=>foods[f]).join("، ")}`,controls))});
+  data.drivers.forEach(x=>{const controls=document.createElement("div");controls.className="lab-actions";controls.append(areaEditor(x,"drivers"),button("حذف",()=>remove("drivers",x.id)));dd.append(row(x.name,`${x.area} · حمولة ${x.capacity} كجم · ${x.available?"متاح":"غير متاح"}${x.cold?" · مبرد":""}`,controls))});renderMap()}
+ function setKind(){const k=$("lab-kind").value;$("lab-amount-label").textContent=k==="request"?"كمية الفائض (كجم)":k==="recipient"?"السعة المتاحة (كجم)":"حمولة الشاحنة (كجم)";document.querySelector(".lab-expiry").hidden=k!=="request";foodsBox.hidden=k==="driver";document.querySelector(".lab-cold").hidden=k==="recipient"}
+ $("lab-kind").onchange=setKind;setKind();
+ $("lab-add").onclick=()=>{const kind=$("lab-kind").value,name=$("lab-name").value.trim(),area=$("lab-area").value,amount=Number($("lab-kg").value),selected=[...foodsBox.querySelectorAll("input:checked")].map(x=>x.value);if(!name){status("اكتب اسمًا تجريبيًا للنقطة أولًا.",true);return}if(!Number.isFinite(amount)||amount<=0){status("أدخل كمية أو سعة موجبة.",true);return}if(kind!=="driver"&&!selected.length){status("اختر صنفًا واحدًا على الأقل.",true);return}const coords=draft||areas[area],base={id:"x"+Date.now()+Math.random().toString(16).slice(2,6),name:safeText(name),area,coords:[...coords],autoCoord:!draft};if(kind==="request")data.requests.push({...base,kg:amount,foods:selected,expires:Math.max(15,Number($("lab-expiry").value)||180),cold:$("lab-cold").checked});if(kind==="recipient")data.recipients.push({...base,capacity:amount,accepts:selected,available:true});if(kind==="driver")data.drivers.push({...base,capacity:amount,available:true,cold:$("lab-cold").checked});draft=null;if(draftMarker){draftMarker.remove();draftMarker=null}$("lab-name").value="";$("lab-coord").textContent="لم تُحدد نقطة دقيقة؛ سيستخدم مركز الحي التقريبي.";save();render();status("أُضيفت النقطة إلى بيانات التجربة المحلية.")};
+ $("lab-reset").onclick=()=>{data=JSON.parse(JSON.stringify(seed));draft=null;save();render();$("lab-result").replaceChildren();status("أُعيدت بيانات التجربة الابتدائية.")};
+ if(map){}render();
+ function permutations(a){if(a.length<2)return[a];return a.flatMap((x,i)=>permutations(a.filter((_,j)=>j!==i)).map(p=>[x,...p]))}
+ function groups(a,max=3){const out=[];function rec(start,cur){if(cur.length)out.push([...cur]);if(cur.length===max)return;for(let i=start;i<a.length;i++){cur.push(a[i]);rec(i+1,cur);cur.pop()}}rec(0,[]);return out}
+ async function getJSON(url){const c=new AbortController(),t=setTimeout(()=>c.abort(),18000);try{const r=await fetch(url,{signal:c.signal});if(!r.ok)throw Error("استجابة التوجيه "+r.status);return await r.json()}finally{clearTimeout(t)}}
+ $("lab-run").onclick=async()=>{const out=$("lab-result");out.replaceChildren();if(!window.L){status("مكتبة الخريطة لم تُحمّل. تحقق من اتصال الإنترنت ثم أعد فتح التبويب.",true);return}const btn=$("lab-run");btn.disabled=true;btn.textContent="جارٍ حساب مصفوفة الطرق…";status("نطلب أزمنة ومسافات قيادة على الطرق من OSRM…");try{
+  const requests=data.requests,recipients=data.recipients.filter(a=>a.available),drivers=data.drivers.filter(d=>d.available);if(!requests.length||!recipients.length||!drivers.length)throw Error("أضف طلبًا وجمعية متاحة وسائقًا متاحًا على الأقل.");if(requests.length>18||recipients.length>10||drivers.length>8)throw Error("حد مختبر العرض هو 18 طلبًا و10 جمعيات و8 سائقين لتبقى عملية البحث سريعة.");
+  const points=[],idx={};function add(id,coord){idx[id]=points.length;points.push(coord)}drivers.forEach(x=>add(x.id,x.coords||areas[x.area]));requests.forEach(x=>add(x.id,x.coords||areas[x.area]));recipients.forEach(x=>add(x.id,x.coords||areas[x.area]));if(points.length>45)throw Error("عدد النقاط كبير لخدمة العرض؛ قلّل العناصر إلى 45 نقطة أو أقل.");
+  const coordStr=points.map(p=>`${p[1]},${p[0]}`).join(";"),base="https://router.project-osrm.org";const table=await getJSON(`${base}/table/v1/driving/${coordStr}?annotations=duration,distance`);if(table.code!=="Ok"||!table.durations)throw Error("خدمة الطرق لم تُرجع مصفوفة قيادة صالحة.");const durations=table.durations,distances=table.distances,remaining=new Set(requests.map(x=>x.id)),capacity=Object.fromEntries(recipients.map(x=>[x.id,x.capacity])),usedDrivers=new Set(),plans=[];
+  while(remaining.size){let best=null;for(const d of drivers){if(usedDrivers.has(d.id))continue;for(const bundle of groups(requests.filter(r=>remaining.has(r.id)),3)){const total=bundle.reduce((s,r)=>s+r.kg,0),deadline=Math.min(...bundle.map(r=>r.expires));if(total>d.capacity||bundle.some(r=>r.cold&&!d.cold))continue;for(const a of recipients){if(capacity[a.id]<total||bundle.some(r=>r.foods.some(f=>!a.accepts.includes(f))))continue;let bestOrder=null;for(const order of permutations(bundle)){const ids=[d.id,...order.map(x=>x.id),a.id],ix=ids.map(id=>idx[id]);let sec=0,met=0,valid=true;for(let j=1;j<ix.length;j++){const t=durations[ix[j-1]]?.[ix[j]],m=distances[ix[j-1]]?.[ix[j]];if(t==null||m==null){valid=false;break}sec+=t;met+=m}if(!valid)continue;const mins=sec/60+order.length*5;if(mins>deadline)continue;const affinity=order.filter(r=>r.area===d.area).length*8;const urgency=90/deadline;const score=order.length*180+total*.08+affinity+urgency-mins*1.2;if(!bestOrder||score>bestOrder.score)bestOrder={order,sec,met,mins,score,ids}}if(bestOrder&&(!best||bestOrder.score>best.score))best={driver:d,recipient:a,bundle:bestOrder.order,...bestOrder}}}}
+   if(!best)break;usedDrivers.add(best.driver.id);capacity[best.recipient.id]-=best.bundle.reduce((s,r)=>s+r.kg,0);best.bundle.forEach(r=>remaining.delete(r.id));plans.push(best)}
+  if(!plans.length)throw Error("لا توجد رحلة ممكنة ضمن القيود. راجع التوفر والسعة والأصناف والتبريد والوقت ومناطق نقاط التجربة.");
+  if(routes)routes.clearLayers();const results=[];for(let i=0;i<plans.length;i++){const p=plans[i],coords=[p.driver,...p.bundle,p.recipient].map(x=>x.coords||areas[x.area]).map(x=>`${x[1]},${x[0]}`).join(";");const route=await getJSON(`${base}/route/v1/driving/${coords}?overview=full&geometries=geojson&steps=false`);if(route.code!=="Ok"||!route.routes?.length)throw Error("تعذر إنشاء مسار طريق لإحدى الرحلات؛ لم نعرض خطًا بديلًا غير حقيقي.");const r=route.routes[0];L.geoJSON(r.geometry,{style:{color:COLORS[i%COLORS.length],weight:6,opacity:.86}}).addTo(routes);const names=[p.driver.name,...p.bundle.map(x=>x.name),p.recipient.name],text=document.createElement("div");text.className="lab-route";const b=document.createElement("b");b.textContent=`${p.driver.name} ← دمج ${p.bundle.length} طلب${p.bundle.length>1?"ات":""} · ${p.bundle.reduce((s,x)=>s+x.kg,0)} كجم`;const detail=document.createElement("div");detail.className="why";detail.textContent=`التوقفات: ${names.join(" ← ")} · ${ (r.distance/1000).toFixed(1)} كم · ${Math.round(r.duration/60)} دقيقة قيادة تقديرية` ;const why=document.createElement("div");why.className="why";why.textContent=`الترشيح: الجمعية متاحة وتقبل الأصناف والسعة تكفي؛ الشاحنة تتسع للحمولة${p.bundle.some(x=>x.area===p.driver.area)?" ومنطقة السائق توافق نقطة استلام واحدة":""}.`;text.append(b,detail,why);results.push(text)}
+  results.forEach(x=>out.append(x));const left=document.createElement("p");left.className="lab-status";left.textContent=remaining.size?`بقي ${remaining.size} طلب دون مسار ممكن؛ الأسباب المحتملة تظهر من القيود المختارة.`:"تم إدراج كل الطلبات ضمن رحلات مقترحة.";out.append(left);const caveat=document.createElement("p");caveat.className="why";caveat.textContent="القرار خوارزمية تجريبية: قيود سعة/أصناف/تبريد/وقت ثم تقليل زمن الطريق، مع بحث دمج حتى 3 طلبات في الرحلة. بيانات المواقع الابتدائية تقريبية، وETA لا يحسب الزحام المباشر.";out.append(caveat);const group=L.featureGroup([...markers.getLayers(),...routes.getLayers()]);if(group.getLayers().length)map.fitBounds(group.getBounds().pad(.12));status("اكتمل التحليل باستخدام مسارات طرق فعلية من خدمة OSRM.");
+ }catch(e){status(e.message||"تعذر الاتصال بخدمة الخريطة أو الطرق.",true);const p=document.createElement("p");p.className="warn";p.textContent=(e.message||"تعذر تحليل المسارات")+" لم تُحسب مسافة مستقيمة كبديل.";out.append(p)}finally{btn.disabled=false;btn.textContent="حلّل المطابقة والمسارات"}};
+ function loadLeaflet(){return new Promise((resolve,reject)=>{if(window.L){resolve();return}const s=document.createElement("script");s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";s.crossOrigin="";s.onload=resolve;s.onerror=()=>reject(Error("تعذر تحميل مكتبة Leaflet"));document.head.append(s)})}
+ loadLeaflet().then(()=>{map=L.map("faed-live-map").setView(CENTER,13);L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'}).addTo(map);markers=L.layerGroup().addTo(map);routes=L.layerGroup().addTo(map);leafletReady=true;map.on("click",e=>setDraft(e.latlng));renderMap();setTimeout(()=>map.invalidateSize(),150);status("الخريطة حقيقية ومتمركزة على بريدة. انقر لاختيار موقع دقيق، أو أضف النقطة من الحي التقريبي.")}).catch(e=>status(e.message+"؛ سيبقى باقي النموذج متاحًا.",true));
+ document.querySelectorAll('#tabs button').forEach((b,i)=>{if(i===2)b.addEventListener('click',()=>{if(map)setTimeout(()=>{map.invalidateSize({pan:false});if(markers&&routes){const g=L.featureGroup([...markers.getLayers(),...routes.getLayers()]);if(g.getLayers().length)map.fitBounds(g.getBounds().pad(.12))}},250)})});
+})();
+</script><script id="faed-owner-analytics">
+(()=>{
+ const $=id=>document.getElementById(id);let period="m";
+ const requests=()=>{try{const a=JSON.parse(localStorage.getItem("faedLocalRequestsV1")||"[]");return Array.isArray(a)?a:[]}catch{return[]}};
+ const safeAppend=(parent,tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;parent.append(e);return e};
+ function windows(now){if(period==="w"){const start=new Date(now);start.setHours(0,0,0,0);const end=new Date(start);end.setDate(end.getDate()+1);const ps=new Date(start);ps.setDate(ps.getDate()-1);return {label:"اليوم مقارنة بأمس",cur:[start,end],prev:[ps,start]}}if(period==="y"){const start=new Date(now.getFullYear(),0,1),prevStart=new Date(now.getFullYear()-1,0,1),prevEnd=new Date(now.getFullYear()-1,now.getMonth(),Math.min(now.getDate(),new Date(now.getFullYear()-1,now.getMonth()+1,0).getDate()));prevEnd.setHours(now.getHours(),now.getMinutes(),now.getSeconds(),now.getMilliseconds()+1);return {label:"من بداية السنة مقارنة بالفترة نفسها من السنة الماضية",cur:[start,new Date(now.getTime()+1)],prev:[prevStart,prevEnd]}}const start=new Date(now.getFullYear(),now.getMonth(),1),prevStart=new Date(now.getFullYear(),now.getMonth()-1,1),prevEnd=new Date(prevStart);prevEnd.setDate(Math.min(now.getDate()+1,new Date(prevStart.getFullYear(),prevStart.getMonth()+1,0).getDate()+1));return {label:"من بداية الشهر مقارنة بالفترة نفسها من الشهر الماضي",cur:[start,new Date(now.getTime()+1)],prev:[prevStart,prevEnd]}}
+ function draw(){const out=$("an2"),news=$("news");if(!out||!news)return;out.replaceChildren();news.replaceChildren();const p=JSON.parse(localStorage.getItem("faedProf")||"null"),org=p?.n||"";const all=requests().filter(x=>x.kind!=="exp"&&(!org||x.org===org)&&x.created);const now=new Date(),w=windows(now),sum=(a,b)=>all.filter(x=>{const t=new Date(x.created);return t>=a&&t<b}).reduce((s,x)=>s+(Array.isArray(x.items)?x.items.reduce((n,i)=>n+(Number(i.kg)||0),0):0),0),cur=sum(...w.cur),prev=sum(...w.prev),count=all.filter(x=>{const t=new Date(x.created);return t>=w.cur[0]&&t<w.cur[1]}).length;const title=safeAppend(out,"p","","المنشأة: "+(org||"احفظ ملف المنشأة لعرض تحليلها")+" · "+w.label);title.style.margin="0 0 8px";const box=safeAppend(out,"div","compare-box");const mx=Math.max(cur,prev,1);[["الفترة الحالية",cur],["الفترة السابقة",prev]].forEach(([label,val])=>{const r=safeAppend(box,"div","compare-row"),l=safeAppend(r,"span","",label),bar=safeAppend(r,"span","compare-bar"),i=document.createElement("i");i.style.width=Math.max(val?3:0,Math.round(val/mx*100))+"%";bar.append(i);safeAppend(r,"b","",val+" كجم")});safeAppend(out,"p","why",`عدد الطلبات الفعلية في الفترة الحالية: ${count}. الحجز المتوقع مستثنى من إجمالي الهدر المسجل.`);
+  if(!org){safeAppend(news,"p","note","احفظ ملف المنشأة ثم سجّل طلبات فعلية لبدء التحليل.");return}if(!all.length){safeAppend(news,"p","note","لا توجد طلبات فائض فعلية محفوظة لهذه المنشأة بعد؛ ستظهر المقارنة بعد التسجيل.");return}if(prev<=0){safeAppend(news,"p","note","لا تتوفر بيانات كافية من الفترة السابقة لحساب نسبة تغير موثوقة.");return}const pct=Math.round((cur-prev)*100/prev);if(pct>=15){safeAppend(news,"div","analytics-warning",`تنبيه المنصة: ارتفع الفائض المسجل ${pct}% عن الفترة السابقة (${cur} مقابل ${prev} كجم). ننصح بمراجعة كميات التحضير والأصناف الأعلى فائضًا لتقليل الهدر.`)}else if(cur<prev){safeAppend(news,"div","analytics-good",`انخفض الفائض المسجل ${Math.abs(pct)}% عن الفترة السابقة. استمروا على خطة التحضير الحالية وراجعوا النتائج في الفترة القادمة.`)}else{safeAppend(news,"p","note",`لم يتجاوز التغير حد التنبيه 15% (${cur} مقابل ${prev} كجم).`)} }
+ document.querySelectorAll("#per button").forEach(b=>b.addEventListener("click",e=>{e.preventDefault();e.stopImmediatePropagation();period=b.dataset.p==="w"?"w":b.dataset.p;document.querySelectorAll("#per button").forEach(x=>{x.classList.toggle("alt",x!==b);x.setAttribute("aria-pressed",x===b?"true":"false")});draw()},true));
+ window.addEventListener("faedRequestsChanged",draw);const open=$("faed-open-analysis");if(open)open.onclick=()=>document.querySelectorAll("#tabs button")[6]?.click();
+  $("aloc")?.addEventListener("click",()=>{const s=$("alocstatus");if(!navigator.geolocation){s.textContent="المتصفح لا يدعم تحديد الموقع؛ الصق رابط خرائط.";return}navigator.geolocation.getCurrentPosition(p=>{const c=p.coords.latitude.toFixed(6)+","+p.coords.longitude.toFixed(6);$("aloc").dataset.coords=c;s.textContent="📍 تم تحديد موقع الجمعية: "+c},()=>{s.textContent="تعذر تحديد الموقع. تحقق من إذن المتصفح أو الصق رابط الخرائط."},{enableHighAccuracy:true,timeout:10000,maximumAge:60000})});
+ $("alnk")?.addEventListener("input",()=>{const v=$("alnk").value,m=v.match(/@(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/)||v.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/)||v.match(/[?&](?:q|query)=(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/);if(m){$("aloc").dataset.coords=m[1]+","+m[2];$("alocstatus").textContent="تم استخراج الإحداثيات من الرابط: "+m[1]+", "+m[2]}else if(v)$("alocstatus").textContent="الرابط محفوظ، لكن تعذر استخراج إحداثياته؛ اختر الموقع الحالي أو ألصق رابطًا يتضمن إحداثيات."}); const roleDetails=["سجّل الفائض وتابع تحليل منشأتك","اعرف مساراتك وحدّث حالة الاستلام والتسليم","حدّث السعة والأصناف المقبولة","تابع الطلبات والسائقين ونتائج المطابقة"],icons=["🏢","🚚","🤝","📊"];
+ document.querySelectorAll("#acc button").forEach((b,i)=>{const label=b.textContent.trim().replace(/^\S+\s*/,"");b.classList.add("role-card");b.setAttribute("aria-label",label+" — "+roleDetails[i]);const icon=document.createElement("span");icon.className="role-icon";icon.setAttribute("aria-hidden","true");icon.textContent=icons[i];const title=document.createElement("strong");title.className="role-title";title.textContent=label;const desc=document.createElement("span");desc.className="role-desc";desc.textContent=roleDetails[i];b.replaceChildren(icon,title,desc)});
+ document.querySelectorAll("#per button").forEach(b=>{b.setAttribute("aria-pressed",b.dataset.p==="m"?"true":"false");b.addEventListener("click",()=>{document.querySelectorAll("#per button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"))},true)});
+ document.querySelectorAll("#tabs button").forEach((b,i)=>{if(i===6)b.textContent="تحليل الهدر والتوقعات"});draw();
+})();
+</script></body>
+</html>
